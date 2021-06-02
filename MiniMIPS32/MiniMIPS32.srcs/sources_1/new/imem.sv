@@ -24,11 +24,11 @@ module imem(
     input [5 : 0] a, // pc addr
     output logic [31 : 0] rd // instr data
     );
-    logic [31 : 0] RAM [63 : 0];
-    // initial RAM
+    logic [31 : 0] ROM [63 : 0];
+    // initial ROM
     initial begin
-        $readmemh("memfile.dat", RAM);
+        $readmemh("memfile.dat", ROM);
     end
     
-    assign rd = RAM[a];
+    assign rd = ROM[a];
 endmodule: imem

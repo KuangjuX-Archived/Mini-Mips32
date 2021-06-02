@@ -1,1 +1,1 @@
-# Mips
+# Mini Mips32 CPU
