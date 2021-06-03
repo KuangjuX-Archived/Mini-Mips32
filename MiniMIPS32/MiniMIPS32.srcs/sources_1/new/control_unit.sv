@@ -23,6 +23,7 @@
 module control_unit(
     input [5 : 0] op, // Opcode,
     input [5 : 0] funct, // Funct
+    input zero,
     output logic mem_to_reg, 
     output logic mem_write,
     output logic branch,
@@ -30,10 +31,13 @@ module control_unit(
     output logic reg_dst,
     output logic reg_write,
     output logic jump,
-    output [1 : 0] alu_control
+    output logic pc_src,
+    output [2 : 0] alu_control
     );
 
     logic [1 : 0] aluop;
+
+    assign pc_src = branch & zero;
 
     main_decoder main_decoder(
         .op(op),

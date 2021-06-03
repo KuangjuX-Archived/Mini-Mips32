@@ -27,7 +27,7 @@ module data_path(
     input mem_to_reg,
     input pc_src,
     input jump,
-    input [1 : 0] alu_control,
+    input [2 : 0] alu_control,
     input alu_src,
     input reg_dst,
     input reg_write,
@@ -76,8 +76,17 @@ module data_path(
     mux2 pc_branch_mux2(
         .data0(pc_branch),
         .data1(pc_plus_4),
-        .select(zero),
+        .select(pc_src),
         .result(pc_branch_next)
+    );
+
+    // mux4 to judege next PC address
+    mux4 next_pc_mux4(
+        .data0(pc_branch_next),
+        .data1({pc_plus_4[31 : 28], instr[25 : 0], 2'b00}),
+        .data2(read_reg_data),
+        .select(jump),
+        .result(pc_next)
     );
 
     // register file logic

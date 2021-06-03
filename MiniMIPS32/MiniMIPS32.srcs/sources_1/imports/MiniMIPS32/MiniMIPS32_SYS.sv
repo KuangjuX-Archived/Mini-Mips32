@@ -13,10 +13,10 @@ module MiniMIPS32_SYS(
     logic we;
     logic [31:0] din;
     logic [31:0] dout;
-    //logic we_dram;
+    // logic we_dram;
     
-    //地址0x80000000对应红灯，地址0x80040000对应绿灯，地址0x10000000开始存放数据
-    //assign we_dram = (daddr[31] == 1'b1) ? 1'b0 : we;
+    // 地址0x80000000对应红灯，地址0x80040000对应绿灯，地址0x10000000开始存放数据
+    // assign we_dram = (daddr[31] == 1'b1) ? 1'b0 : we;
     logic led_r_reg, led_g_reg;
     always_ff @(posedge sys_clk) begin
         if (!sys_rst_n) {led_r_reg, led_g_reg} <= 2'b00;
@@ -39,7 +39,7 @@ module MiniMIPS32_SYS(
     );
     
     inst_rom inst_rom (
-        .a(iaddr[9:2]),      // input wire [9 : 2] a
+        .a(iaddr[9:2]),  // input wire [9 : 2] a
         .spo(inst)  // output wire [31 : 0] spo
     );
     
@@ -52,4 +52,4 @@ module MiniMIPS32_SYS(
     );
 
 
-endmodule
+endmodule: MiniMIPS32_SYS

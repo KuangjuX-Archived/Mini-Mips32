@@ -16,10 +16,12 @@ module MiniMIPS32(
     */
     logic mem_to_reg, mem_write, branch, alu_src, reg_dst, reg_write, jump;
     logic [1 : 0] alu_control;
+    logic zero;
 
     control_unit control_unit(
         .op(inst[31 : 26]),
         .funct(inst[5 : 0]),
+        .zero(zero),
         .mem_to_reg(mem_to_reg),
         .mem_write(men_write),
         .branch(branch),
@@ -28,6 +30,13 @@ module MiniMIPS32(
         .reg_write(reg_write),
         .jump(jump),
         .alu_control(alu_control)
+    );
+
+    data_path data_path(
+        .clk(cpu_clk),
+        .rst(cpu_rst_n),
+        .instr(inst[25 : 0]),
+        .mem_to_reg(mem_to_reg)
     );
     
 endmodule: MiniMIPS32
