@@ -29,7 +29,28 @@ module control_unit(
     output logic alu_src,
     output logic reg_dst,
     output logic reg_write,
+    output logic jump,
     output [1 : 0] alu_control
+    );
+
+    logic [1 : 0] aluop;
+
+    main_decoder main_decoder(
+        .op(op),
+        .mem_to_reg(mem_to_reg),
+        .mem_write(mem_write),
+        .branch(branch),
+        .alu_src(alu_src),
+        .reg_dst(reg_dst),
+        .reg_write(reg_write),
+        .jump(jump),
+        .aluop(aluop)
+    );
+
+    alu_decoder alu_decoder(
+        .funct(funct),
+        .aluop(aluop),
+        .alu_control(alu_control)
     );
 endmodule: control_unit
 
