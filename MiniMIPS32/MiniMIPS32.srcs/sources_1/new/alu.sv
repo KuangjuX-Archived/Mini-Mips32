@@ -23,23 +23,18 @@
 module alu(
     input [31 : 0] a,
     input [31 : 0] b,
-    input [3 : 0] aluop,
+    input [2 : 0] aluop,
     output logic [31 : 0] res,
     output logic ZF // zero
     );
 
     always_comb begin
-        unique case (aluop) 
-            4'd0: res = a & b;
-            4'd1: res = a | b;
-            4'd2: res = a + b;
-            4'd3: res = b << a;
-            4'd4: res = a & ~b;
-            4'd5: res = a | ~b;
-            4'd6: res = a - b;
-            4'd7: res = a < b ? 32'b1 : '0;
-            4'd8: res = b >> a;
-            4'd9: res = b >>> a;
+        unique case (aluop)
+            3'b000: res = a & b; 
+            3'b001: res = a | b;
+            3'b010: res = a + b;
+            3'b110: res = a - b;
+            3'b111: res = a < b ? 32'd1 : '0;
             default: res = '0;
         endcase
 
