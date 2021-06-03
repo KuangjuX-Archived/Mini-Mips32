@@ -74,10 +74,38 @@ module main_decoder(
     assign {reg_write, reg_dst, alu_src, branch, 
             mem_write, mem_to_reg, aluop, jump} = bundle;
     
+    /*  reg_write
+        reg_dst
+        alu_src
+        branch
+        mem_write
+        mem_to_reg
+        aluop
+        jump
+    */
+
+    /*
+        Example: ori
+        ORI rt, rs, imm
+        寄存器rs中的值与0扩展至32位的立即数按位逻辑或，结果写入寄存器rt中。
+        GPR[rt] <- GPR[rt] or Zero_extend(imm)
+        31-------26 25-------21 20------16 15-------0
+           001101        rs         rt         imm
+
+        reg_write: 1(write into rt)
+        reg_dst: 0(write into rt(20 : 16))
+        alu_src: 1(src_b as sign_imm)
+        branch: 0(no jump)
+        mem_write: 0(no write into mem)
+        mem_to_reg: 0(alu_res write into reg)
+        aluop: 10
+        jump: 0
+    */
+
     always_comb begin 
         unique case(op)
             6'b000000: bundle = 9'b1_1_0_0_0_0_10_0; // R-type
-            6'b001101: bundle = 9'bx_x_x_x_x_x_10_x; // ori
+            6'b001101: bundle = 9'b1_0_1_0_0_0_10_0; // ori
             6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
             6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
             6'b000100: bundle = 9'b0_x_0_1_0_x_01_0; // beq 如果相等则转移
