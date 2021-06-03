@@ -1,5 +1,6 @@
 `include "defines.sv"
 
+// Top Module
 module MiniMIPS32_SYS(
     input logic sys_clk,
     input logic sys_rst_n,
@@ -15,7 +16,7 @@ module MiniMIPS32_SYS(
     logic [31:0] dout;
     // logic we_dram;
     
-    // µØÖ·0x80000000¶ÔÓ¦ºìµÆ£¬µØÖ·0x80040000¶ÔÓ¦ÂÌµÆ£¬µØÖ·0x10000000¿ªÊ¼´æ·ÅÊý¾Ý
+    // ï¿½ï¿½Ö·0x80000000ï¿½ï¿½Ó¦ï¿½ï¿½Æ£ï¿½ï¿½ï¿½Ö·0x80040000ï¿½ï¿½Ó¦ï¿½ÌµÆ£ï¿½ï¿½ï¿½Ö·0x10000000ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     // assign we_dram = (daddr[31] == 1'b1) ? 1'b0 : we;
     logic led_r_reg, led_g_reg;
     always_ff @(posedge sys_clk) begin

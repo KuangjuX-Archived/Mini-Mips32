@@ -31,7 +31,7 @@ module data_path(
     input alu_src,
     input reg_dst,
     input reg_write,
-    input [31 : 0] read_reg_data,
+    input [31 : 0] read_data,
     output logic [31 : 0] pc_o,
     output logic [31 : 0] alu_res,
     output logic zero,
