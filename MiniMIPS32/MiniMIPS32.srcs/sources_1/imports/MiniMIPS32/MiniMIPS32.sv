@@ -14,18 +14,20 @@ module MiniMIPS32(
      [31---26|25---21|20---16|15---11|10---6|5---0]
         op      rs      rt      rd      sa    func
     */
-    logic pc_src, mem_to_reg, mem_write, branch, alu_src, reg_dst, reg_write, jump;
+
+    // we(write enable) is equal to mem_write
+    // pc register is equal to iaddr
+    // aluout is equal to daddr
+    logic pc_src, mem_to_reg, branch, alu_src, reg_dst, reg_write, jump;
     logic [1 : 0] alu_control;
     logic zero;
-    logic [31 : 0] pc;
-    logic [31 : 0] alu_res;
 
     control_unit control_unit(
         .op(inst[31 : 26]),
         .funct(inst[5 : 0]),
         .zero(zero),
         .mem_to_reg(mem_to_reg),
-        .mem_write(men_write),
+        .mem_write(we),
         .branch(branch),
         .alu_src(alu_src),
         .reg_dst(reg_dst),
@@ -47,8 +49,8 @@ module MiniMIPS32(
         .reg_dst(reg_dst),
         .reg_write(reg_write),
         .read_data(dout),
-        .pc_o(pc),
-        .alu_res(alu_res),
+        .pc_o(iaddr),
+        .alu_res(daddr),
         .zero(zero),
         .wd(din)
     );
