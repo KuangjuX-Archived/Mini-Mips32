@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+// control unit invoked by MiniMips32.sv
 module control_unit(
     input [5 : 0] op, // Opcode,
     input [5 : 0] funct, // Funct
@@ -73,10 +73,12 @@ module main_decoder(
     always_comb begin 
         unique case(op)
             6'b000000: bundle = 9'b1_1_0_0_0_0_10_0; // R-type
+            6'b001101: bundle = 9'bx_x_x_x_x_x_10_x; // ori
             6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
             6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
-            6'b000100: bundle = 9'b0_x_0_1_0_x_01_0; // beq
-            6'b001000: bundle = 9'b1_0_1_0_0_0_00_0; // addi
+            6'b000100: bundle = 9'b0_x_0_1_0_x_01_0; // beq 如果相等则转移
+            6'b000101: bundle = 9'bx_x_x_x_x_x_01_x; // bne 如果不相等则转移
+            6'b001001: bundle = 9'b1_0_1_0_0_0_00_0; // addiu
             6'b000010: bundle = 9'b0_x_x_x_x_x_xx_1; // j
             default: bundle = 9'bxxxxxxxxx; // invalid op
         endcase
