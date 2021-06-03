@@ -44,8 +44,13 @@ module data_path(
     logic [31 : 0] write_reg_data;
     logic [5 : 0] write_reg;
     logic [31 : 0] read_reg_data_1, read_reg_data_2;
+    logic [31 : 0] read_mem_data;
 
-
+    // sign extension for sign_imm
+    sign_ext sign_imm_ext(
+        .in(instr[15 : 0]),
+        .out(sign_imm)
+    );
 
     // Next PC logic
     flip pc_reg(
@@ -106,14 +111,14 @@ module data_path(
     dmem dmem(
         .clk(clk),
         .we(mem_write),
-        .a(),
-        .wd(),
-        .rd()
+        .a(alu_res),
+        .wd(read_reg_data_2),
+        .rd(read_mem_data)
     );
 
     mux2 write_reg_data_mux2(
         .data0(alu_res),
-        .data0(read_reg_data),
+        .data1(read_mem_data),
         .select(mem_to_reg),
         .result(write_reg_data)
     );
