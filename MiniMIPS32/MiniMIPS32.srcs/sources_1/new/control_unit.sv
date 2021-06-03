@@ -41,20 +41,23 @@ module main_decoder(
     output logic alu_src,
     output logic reg_dst,
     output logic reg_write,
+    output logic jump,
     output logic [1 : 0] aluop
 );
 
-    logic [7 : 0] bundle;
+    logic [8 : 0] bundle;
     assign {reg_write, reg_dst, alu_src, branch, 
-            mem_write, mem_to_reg, aluop} = bundle;
+            mem_write, mem_to_reg, aluop, jump} = bundle;
     
     always_comb begin 
         unique case(op)
-            6'b000000: bundle = 8'b1_1_0_0_0_0_10; // R-type
-            6'b100011: bundle = 8'b1_0_1_0_0_1_00; // lw
-            6'b101011: bundle = 8'b0_x_1_0_1_x_00; // sw
-            6'b000100: bundle = 8'b0_x_0_1_0_x_01; // beq
-            default: bundle = 8'bxxxxxxxx; // invalid op
+            6'b000000: bundle = 9'b1_1_0_0_0_0_10_0; // R-type
+            6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
+            6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
+            6'b000100: bundle = 9'b0_x_0_1_0_x_01_0; // beq
+            6'b001000: bundle = 9'b1_0_1_0_0_0_00_0; // addi
+            6'b000010: bundle = 9'b0_x_x_x_x_x_xx_1; // j
+            default: bundle = 9'bxxxxxxxxx; // invalid op
         endcase
     end
 
