@@ -42,6 +42,9 @@ module data_path(
     logic [31 : 0] sign_imm;
     logic [31 : 0] src_a, src_b;
     logic [31 : 0] write_reg_data;
+    logic [5 : 0] write_reg;
+    logic [31 : 0] read_reg_data_1, read_reg_data_2;
+
 
     // Next PC logic
     flip pc_reg(
@@ -63,17 +66,39 @@ module data_path(
         .res(pc_branch)
     );
 
+    // beq -> select pc_branch or pc_plus_4
+    mux2 pc_branch_mux2(
+        .data0(pc_branch),
+        .data1(pc_plus_4),
+        .select(zero),
+        .result(pc_branch_next)
+    );
+
     // register file logic
     reg_file reg_file(
         .clk(clk),
         .rst(rst),
         .a1(instr[25 : 21]), // rs seg
         .a2(instr[20 : 16]),
-        .a3(),
-        .wd(),
+        .a3(write_reg),
+        .wd(write_reg_data),
         .we(reg_write),
-        .rd1(),
-        .rd2()
+        .rd1(read_reg_data_1),
+        .rd2(read_reg_data_2)
+    );
+
+    mux2 #(5) reg_write_addr_mux2(
+        .data0(instr[20 : 16]),
+        .data1(instr[15 : 11]),
+        .select(reg_dst),
+        .result(write_reg)
+    );
+
+    mux2 src_b_mux2(
+        .data0(read_reg_data_2),
+        .data1(sign_imm),
+        .select(alu_src),
+        .result(src_b)
     );
 
     // Data Memory logic
@@ -99,6 +124,6 @@ module data_path(
         .b(src_b),
         .aluop(aluop),
         .res(alu_res),
-        .ZF()
+        .ZF(zero)
     );
 endmodule: data_path
