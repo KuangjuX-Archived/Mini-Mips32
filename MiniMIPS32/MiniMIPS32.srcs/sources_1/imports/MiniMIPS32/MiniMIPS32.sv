@@ -47,7 +47,7 @@ module MiniMIPS32(
         .alu_control(alu_control),
         .alu_src(alu_src),
         .reg_dst(reg_dst),
-        .reg_write(reg_write),
+        .reg_write_i(reg_write),
         .read_data(dout),
         .pc_o(iaddr),
         .alu_res(daddr),

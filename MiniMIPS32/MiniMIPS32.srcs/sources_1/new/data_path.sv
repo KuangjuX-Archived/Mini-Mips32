@@ -30,7 +30,7 @@ module data_path(
     input [2 : 0] alu_control,
     input alu_src,
     input reg_dst,
-    input reg_write,
+    input reg_write_i,
     input [31 : 0] read_data,
     output logic [31 : 0] pc_o,
     output logic [31 : 0] alu_res,
@@ -43,7 +43,7 @@ module data_path(
     logic [31 : 0] src_a, src_b;
     logic [31 : 0] write_reg_data;
     logic [5 : 0] write_reg;
-    logic [31 : 0] read_reg_data_1, read_reg_data_2;
+    // logic [31 : 0] read_reg_data_1, read_reg_data_2;
     logic [31 : 0] read_mem_data;
 
     // sign extension for sign_imm
@@ -97,9 +97,9 @@ module data_path(
         .a2(instr[20 : 16]),
         .a3(write_reg),
         .wd(write_reg_data),
-        .we(reg_write),
-        .rd1(read_reg_data_1),
-        .rd2(read_reg_data_2)
+        .we(reg_write_i),
+        .rd1(read_reg_data),
+        .rd2(write_data) // RD2 port --> WriteData
     );
 
     mux2 #(5) reg_write_addr_mux2(
@@ -117,13 +117,16 @@ module data_path(
     );
 
     // Data Memory logic
-    dmem dmem(
-        .clk(clk),
-        .we(mem_write),
-        .a(alu_res),
-        .wd(read_reg_data_2),
-        .rd(read_mem_data)
-    );
+    // Data Memory Module is implemented in MiniMIPS32_SYS Module
+    // which work by reading and writing RAM
+
+    // dmem dmem(
+    //     .clk(clk),
+    //     .we(mem_write),
+    //     .a(alu_res),
+    //     .wd(read_reg_data_2),
+    //     .rd(read_mem_data)
+    // );
 
     mux2 write_reg_data_mux2(
         .data0(alu_res),
@@ -137,7 +140,7 @@ module data_path(
     alu alu(
         .a(src_a),
         .b(src_b),
-        .aluop(aluop),
+        .aluop(alu_control),
         .res(alu_res),
         .ZF(zero)
     );

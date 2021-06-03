@@ -34,14 +34,14 @@ module reg_file(
     logic [31 : 0] rf[31 : 0];
     integer i;
 
-    always_ff @(posedge clk ) begin
+    always_ff @(posedge clk) begin
         if(rst) begin
             for(i=0; i<32; i++) rf[i] <= '0;
         end
         else if(we) rf[a3] <= wd;
     end
 
-    assign rd1 = rf[a1];
-    assign rd2 = rf[a2];
-
+    assign rd1 = (a1 != 0) ? rf[a1] : '0;
+    assign rd2 = (a2 != 0) ? rf[a2] : '0;
+ 
 endmodule: reg_file
