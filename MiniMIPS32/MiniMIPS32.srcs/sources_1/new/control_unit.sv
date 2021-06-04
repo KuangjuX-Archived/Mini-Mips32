@@ -102,6 +102,18 @@ module main_decoder(
         jump: 0
     */
 
+    /*
+        lw
+        reg_write: 1
+        reg_dst: 0
+        alu_src: 1
+        branch: 0
+        mem_write: 0
+        mem_to_reg:1
+        aluop: 00
+        jump: 0
+    */
+
     always_comb begin 
         unique case(op)
             6'b000000: bundle = 9'b1_1_0_0_0_0_10_0; // R-type
