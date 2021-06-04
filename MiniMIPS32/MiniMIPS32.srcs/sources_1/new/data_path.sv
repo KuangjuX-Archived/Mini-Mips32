@@ -43,8 +43,6 @@ module data_path(
     logic [31 : 0] src_a, src_b;
     logic [31 : 0] write_reg_data;
     logic [5 : 0] write_reg;
-    // logic [31 : 0] read_reg_data_1, read_reg_data_2;
-    logic [31 : 0] read_mem_data;
 
     // sign extension for sign_imm
     sign_ext sign_imm_ext(
@@ -74,8 +72,8 @@ module data_path(
 
     // beq -> select pc_branch or pc_plus_4
     mux2 pc_branch_mux2(
-        .data0(pc_branch),
-        .data1(pc_plus_4),
+        .data0(pc_plus_4),
+        .data1(pc_branch),
         .select(pc_src),
         .result(pc_branch_next)
     );
@@ -85,6 +83,7 @@ module data_path(
         .data0(pc_branch_next),
         .data1({pc_plus_4[31 : 28], instr[25 : 0], 2'b00}),
         .data2(read_reg_data),
+        .data3(),
         .select(jump),
         .result(pc_next)
     );

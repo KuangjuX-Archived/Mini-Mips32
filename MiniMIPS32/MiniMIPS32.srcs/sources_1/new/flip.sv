@@ -20,15 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module flip #(parameter Width = 31)(
+module flip #(parameter Width = 32)(
     input clk,
     input rst,
     input [Width-1 : 0] in,
     output logic [Width-1 : 0] out
     );
     
-    always_ff @(posedge clk ) begin
-        if(rst) out <= '0;
+    always_ff @(posedge clk) begin
+        if(!rst) out <= '0;
         else out <= in;
     end
 endmodule: flip

@@ -1,3 +1,15 @@
+2018.2:
+ * Version 8.0 (Rev. 12)
+ * No changes
+
+2018.1:
+ * Version 8.0 (Rev. 12)
+ * No changes
+
+2017.4:
+ * Version 8.0 (Rev. 12)
+ * No changes
+
 2017.3:
  * Version 8.0 (Rev. 12)
  * General: Internal device family change, no functional changes
@@ -96,7 +108,7 @@
  * Native Vivado Release
  * Unused port SPRA and its associated parameters removed.
 
-(c) Copyright 2002 - 2017 Xilinx, Inc. All rights reserved.
+(c) Copyright 2002 - 2018 Xilinx, Inc. All rights reserved.
 
 This file contains confidential and proprietary information
 of Xilinx, Inc. and is protected under U.S. and
