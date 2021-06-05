@@ -107,7 +107,7 @@ module data_path(
         .wd(write_reg_data),
         .we(reg_write_i),
         .rd1(read_reg_data),
-        .rd2(write_data) // RD2 port --> WriteData
+        .rd2(wd) // RD2 port --> WriteData
     );
 
     mux2 #(5) reg_write_addr_mux2(
