@@ -35,13 +35,14 @@ module reg_file(
     integer i;
 
     always_ff @(posedge clk) begin
-        if(rst) begin
-            for(i=0; i<32; i++) rf[i] <= '0;
+        if(!rst) begin
+            for(i=0; i<32; ++i) rf[i] <= '0;
         end
         else if(we) rf[a3] <= wd;
     end
 
-    assign rd1 = (a1 != 0) ? rf[a1] : '0;
-    assign rd2 = (a2 != 0) ? rf[a2] : '0;
+    // Register 0 hardwired to 0
+    assign rd1 = !a1 ? '0 : rf[a1];
+    assign rd2 = !a2 ? '0 : rf[a2];
  
 endmodule: reg_file

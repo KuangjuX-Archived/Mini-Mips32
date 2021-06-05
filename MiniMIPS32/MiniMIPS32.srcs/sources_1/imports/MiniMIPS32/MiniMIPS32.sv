@@ -19,7 +19,7 @@ module MiniMIPS32(
     // pc register is equal to iaddr
     // aluout is equal to daddr
     logic pc_src, mem_to_reg, branch, alu_src, reg_dst, reg_write, jump;
-    logic [1 : 0] alu_control;
+    logic [2 : 0] alu_control;
     logic zero;
 
     // data to write into RAM with normal order
@@ -47,20 +47,14 @@ module MiniMIPS32(
     assign read_mem_data[23 : 16] = dout[15 : 8];
     assign read_mem_data[31 : 24] = dout[7 : 0];
 
-    assign iaddr[7 : 0] = instr_addr_o[31 : 24];
-    assign iaddr[15 : 8] = instr_addr_o[23 : 16];
-    assign iaddr[23 : 16] = instr_addr_o[15 : 8];
-    assign iaddr[31 : 24] = instr_addr_o[7 : 0];
-
     assign cur_instr[7 : 0] = inst[31 : 24];
     assign cur_instr[15 : 8] = inst[23 : 16];
     assign cur_instr[23 : 16] = inst[15 : 8];
     assign cur_instr[31 : 24] = inst[7 : 0];
 
-    assign daddr[7 : 0] = data_addr_o[31 : 24];
-    assign daddr[15 : 8] = data_addr_o[23 : 16];
-    assign daddr[23 : 16] = data_addr_o[15 : 8];
-    assign daddr[31 : 24] = data_addr_o[7 : 0];
+
+    assign daddr[31 : 0] = data_addr_o[31 : 0];
+    assign iaddr[31 : 0] = instr_addr_o[31 : 0];
 
 
 

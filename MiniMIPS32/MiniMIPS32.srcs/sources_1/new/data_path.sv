@@ -42,6 +42,7 @@ module data_path(
     logic [31 : 0] sign_imm;
     logic [31 : 0] src_a, src_b;
     logic [31 : 0] write_reg_data;
+    logic [31 : 0] read_reg_data;
     logic [5 : 0] write_reg;
 
     // sign extension for sign_imm
@@ -71,7 +72,7 @@ module data_path(
     );
 
     // beq -> select pc_branch or pc_plus_4
-    mux2 pc_branch_mux2(
+    mux2 pc_branch_next_mux2(
         .data0(pc_plus_4),
         .data1(pc_branch),
         .select(pc_src),
@@ -79,12 +80,20 @@ module data_path(
     );
 
     // mux4 to judege next PC address
-    mux4 next_pc_mux4(
+    // mux4 pc_next_mux4(
+    //     .data0(pc_branch_next),
+    //     .data1({pc_plus_4[31 : 28], instr[25 : 0], 2'b00}),
+    //     .data2(read_reg_data),
+    //     .data3('0),
+    //     .select(jump),
+    //     .result(pc_next)
+    // );
+
+    // mux2 to judge next PC address
+    mux2 pc_next_mux2(
         .data0(pc_branch_next),
         .data1({pc_plus_4[31 : 28], instr[25 : 0], 2'b00}),
-        .data2(read_reg_data),
-        .data3(),
-        .select(jump),
+        .select('0),
         .result(pc_next)
     );
 
@@ -109,7 +118,7 @@ module data_path(
     );
 
     mux2 src_b_mux2(
-        .data0(read_reg_data_2),
+        .data0(write_data),
         .data1(sign_imm),
         .select(alu_src),
         .result(src_b)
@@ -137,7 +146,7 @@ module data_path(
 
     // ALU logic
     alu alu(
-        .a(src_a),
+        .a(read_reg_data),
         .b(src_b),
         .aluop(alu_control),
         .res(alu_res),

@@ -24,10 +24,10 @@ module sign_ext #(
     parameter InWidth = 16,
     parameter OutWidth = 32
     ) (
-        input [InWidth : 0] in,
-        output [OutWidth : 0] out
+        input [InWidth-1 : 0] in,
+        output logic [OutWidth-1 : 0] out
     );
 
-    assign out  = {{(OutWidth - InWidth){in[InWidth - 1]}}, in};
+    assign out = {{(OutWidth - InWidth){in[InWidth - 1]}}, in};
 
 endmodule: sign_ext
