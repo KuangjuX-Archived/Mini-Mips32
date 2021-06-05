@@ -128,17 +128,10 @@ module data_path(
     // Data Memory Module is implemented in MiniMIPS32_SYS Module
     // which work by reading and writing RAM
 
-    // dmem dmem(
-    //     .clk(clk),
-    //     .we(mem_write),
-    //     .a(alu_res),
-    //     .wd(read_reg_data_2),
-    //     .rd(read_mem_data)
-    // );
 
     mux2 write_reg_data_mux2(
         .data0(alu_res),
-        .data1(read_mem_data),
+        .data1(read_data),
         .select(mem_to_reg),
         .result(write_reg_data)
     );
