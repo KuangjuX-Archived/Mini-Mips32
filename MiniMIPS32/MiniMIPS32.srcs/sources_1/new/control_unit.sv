@@ -116,14 +116,15 @@ module main_decoder(
 
     always_comb begin 
         unique case(op)
+            6'b000010: bundle = 9'b0_x_x_x_x_x_xx_1; // j
             6'b000000: bundle = 9'b1_1_0_0_0_0_10_0; // R-type
-            6'b001101: bundle = 9'b1_0_1_0_0_0_10_0; // ori
-            6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
-            6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
             6'b000100: bundle = 9'b0_x_0_1_0_x_01_0; // beq 如果相等则转移
             6'b000101: bundle = 9'bx_x_x_x_x_x_01_x; // bne 如果不相等则转移
             6'b001001: bundle = 9'b1_0_1_0_0_0_00_0; // addiu
-            6'b000010: bundle = 9'b0_x_x_x_x_x_xx_1; // j
+            6'b001101: bundle = 9'b1_0_1_0_0_0_10_0; // ori
+            6'b001111: bundle = 9'bx_x_x_x_x_x_xx_x; // lui
+            6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
+            6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
             default: bundle = 9'bxxxxxxxxx; // invalid op
         endcase
     end
