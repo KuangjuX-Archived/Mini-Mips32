@@ -21,6 +21,7 @@ module MiniMIPS32(
     logic pc_src, mem_to_reg, branch, alu_src, reg_dst, reg_write, jump;
     logic [2 : 0] alu_control;
     logic zero;
+    logic select_imm;
 
     // data to write into RAM with normal order
     logic [31 : 0] write_mem_data;
@@ -70,6 +71,7 @@ module MiniMIPS32(
         .reg_write(reg_write),
         .jump(jump),
         .pc_src(pc_src),
+        .select_imm(select_imm),
         .alu_control(alu_control)
     );
 
@@ -84,6 +86,7 @@ module MiniMIPS32(
         .alu_src(alu_src),
         .reg_dst(reg_dst),
         .reg_write_i(reg_write),
+        .select_imm(select_imm),
         .read_data(read_mem_data),
         .pc_o(instr_addr_o),
         .alu_res(data_addr_o),

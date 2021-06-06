@@ -67,12 +67,13 @@ module main_decoder(
     output logic reg_dst,
     output logic reg_write,
     output logic jump,
+    output logic select_imm,
     output logic [1 : 0] aluop
 );
 
-    logic [8 : 0] bundle;
+    logic [9 : 0] bundle;
     assign {reg_write, reg_dst, alu_src, branch, 
-            mem_write, mem_to_reg, aluop, jump} = bundle;
+            mem_write, mem_to_reg, aluop, jump, select_imm} = bundle;
     
     /*  reg_write
         reg_dst
@@ -128,16 +129,16 @@ module main_decoder(
 
     always_comb begin 
         unique case(op)
-            6'b000010: bundle = 9'b0_x_x_x_x_x_xx_1; // j
-            6'b000000: bundle = 9'b1_1_0_0_0_0_10_0; // R-type
-            6'b000100: bundle = 9'b0_x_0_1_0_x_01_0; // beq 如果相等则转移
-            6'b000101: bundle = 9'bx_x_x_x_x_x_01_x; // bne 如果不相等则转移
-            6'b001001: bundle = 9'b1_0_1_0_0_0_00_0; // addiu
-            6'b001101: bundle = 9'b1_0_1_0_0_0_10_0; // ori
-            6'b001111: bundle = 9'b1_0_0_0_0_0_11_0; // lui
-            6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
-            6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
-            default: bundle = 9'bxxxxxxxxx; // invalid op
+            6'b000010: bundle = 10'b0_x_x_x_x_x_xx_1_0; // j
+            6'b000000: bundle = 10'b1_1_0_0_0_0_10_0_0; // R-type
+            6'b000100: bundle = 10'b0_x_0_1_0_x_01_0_0; // beq 如果相等则转移
+            6'b000101: bundle = 10'bx_x_x_x_x_x_01_x_0; // bne 如果不相等则转移
+            6'b001001: bundle = 10'b1_0_1_0_0_0_00_0_0; // addiu
+            6'b001101: bundle = 10'b1_0_1_0_0_0_10_0_0; // ori
+            6'b001111: bundle = 10'b1_0_0_0_0_0_11_0_1; // lui
+            6'b100011: bundle = 10'b1_0_1_0_0_1_00_0_0; // lw
+            6'b101011: bundle = 10'b0_x_1_0_1_x_00_0_0; // sw
+            default: bundle = 10'bxxxxxxxxxx; // invalid op
         endcase
     end
 

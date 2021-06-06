@@ -31,6 +31,7 @@ module data_path(
     input alu_src,
     input reg_dst,
     input reg_write_i,
+    input select_imm,
     input [31 : 0] read_data,
     output logic [31 : 0] pc_o,
     output logic [31 : 0] alu_res,
@@ -44,12 +45,19 @@ module data_path(
     logic [31 : 0] write_reg_data;
     logic [31 : 0] read_reg_data;
     logic [5 : 0] write_reg;
+    
+    logic [31 : 0] imm_1, imm_2;
 
     // sign extension for sign_imm
-    sign_ext sign_imm_ext(
+    sign_ext sign_imm_1_ext(
         .in(instr[15 : 0]),
-        .out(sign_imm)
+        .out(imm_1)
     );
+
+    // for lui instr
+    assign imm_2 = {instr[15 : 0], 16'd0};
+
+
 
     // Next PC logic
     flip pc_reg(
@@ -117,13 +125,6 @@ module data_path(
         .result(write_reg)
     );
 
-    mux2 src_b_mux2(
-        .data0(write_data),
-        .data1(sign_imm),
-        .select(alu_src),
-        .result(src_b)
-    );
-
     // Data Memory logic
     // Data Memory Module is implemented in MiniMIPS32_SYS Module
     // which work by reading and writing RAM
@@ -145,4 +146,13 @@ module data_path(
         .res(alu_res),
         .ZF(zero)
     );
+
+    mux2 src_b_mux2(
+        .data0(write_data),
+        .data1(sign_imm),
+        .select(alu_src),
+        .result(src_b)
+    );
+
+
 endmodule: data_path
