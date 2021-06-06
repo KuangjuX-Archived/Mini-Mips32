@@ -114,6 +114,18 @@ module main_decoder(
         jump: 0
     */
 
+    /*
+        lui
+        reg_write: 1
+        reg_dst: 0
+        alu_src: 0
+        branch: 0
+        mem_write: 0
+        mem_to_reg: 0
+        aluop: 00
+        jump: 0
+    */
+
     always_comb begin 
         unique case(op)
             6'b000010: bundle = 9'b0_x_x_x_x_x_xx_1; // j
@@ -122,7 +134,7 @@ module main_decoder(
             6'b000101: bundle = 9'bx_x_x_x_x_x_01_x; // bne 如果不相等则转移
             6'b001001: bundle = 9'b1_0_1_0_0_0_00_0; // addiu
             6'b001101: bundle = 9'b1_0_1_0_0_0_10_0; // ori
-            6'b001111: bundle = 9'bx_x_x_x_x_x_xx_x; // lui
+            6'b001111: bundle = 9'b1_0_0_0_0_0_11_0; // lui
             6'b100011: bundle = 9'b1_0_1_0_0_1_00_0; // lw
             6'b101011: bundle = 9'b0_x_1_0_1_x_00_0; // sw
             default: bundle = 9'bxxxxxxxxx; // invalid op
@@ -141,7 +153,7 @@ always_comb begin
     unique case(aluop)
         2'b00: alu_control = 3'b010; // add
         2'b01: alu_control = 3'b110; // sub
-        default: begin
+        2'b10: begin
             unique case(funct)
                 6'b100000: alu_control = 3'b010; // add
                 6'b100010: alu_control = 3'b110; // sub
@@ -150,6 +162,7 @@ always_comb begin
                 6'b101010: alu_control = 3'b111; // slt
             endcase
         end
+        2'b11: alu_control = 3'b011;
     endcase
 end
 

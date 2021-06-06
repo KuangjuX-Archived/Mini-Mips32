@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-// Date        : Fri Jun  4 16:03:35 2021
+// Date        : Sun Jun  6 22:20:35 2021
 // Host        : DESKTOP-HJ97TPV running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               D:/Build-My-Own/Digital-Lab/lab-5/Mini-Mips32/MiniMIPS32/MiniMIPS32.srcs/sources_1/ip/inst_rom/inst_rom_stub.v
