@@ -147,6 +147,13 @@ module data_path(
         .ZF(zero)
     );
 
+    mux2 sign_imm_mux2(
+        .data0(imm_1),
+        .data1(imm_2),
+        .select(select_imm),
+        .result(sign_imm)
+    );
+
     mux2 src_b_mux2(
         .data0(write_data),
         .data1(sign_imm),

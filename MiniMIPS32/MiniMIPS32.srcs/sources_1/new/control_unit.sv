@@ -32,6 +32,7 @@ module control_unit(
     output logic reg_write,
     output logic jump,
     output logic pc_src,
+    output logic select_imm,
     output [2 : 0] alu_control
     );
 
