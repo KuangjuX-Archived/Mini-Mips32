@@ -36,7 +36,7 @@ module control_unit(
     output [2 : 0] alu_control
     );
 
-    logic [1 : 0] aluop;
+    logic [2 : 0] aluop;
 
     assign pc_src = branch & zero;
 
@@ -70,10 +70,10 @@ module main_decoder(
     output logic reg_write,
     output logic jump,
     output logic select_imm,
-    output logic [1 : 0] aluop
+    output logic [2 : 0] aluop
 );
 
-    logic [9 : 0] bundle;
+    logic [10 : 0] bundle;
     assign {reg_write, reg_dst, alu_src, branch, 
             mem_write, mem_to_reg, aluop, jump, select_imm} = bundle;
     
@@ -131,16 +131,16 @@ module main_decoder(
 
     always_comb begin 
         unique case(op)
-            6'b000010: bundle = 10'b0_x_x_x_x_x_xx_1_0; // j
-            6'b000000: bundle = 10'b1_1_0_0_0_0_10_0_0; // R-type
-            6'b000100: bundle = 10'b0_x_0_1_0_x_01_0_0; // beq 如果相等则转移
-            6'b000101: bundle = 10'bx_x_x_x_x_x_01_x_0; // bne 如果不相等则转移
-            6'b001001: bundle = 10'b1_0_1_0_0_0_00_0_0; // addiu
-            6'b001101: bundle = 10'b1_0_1_0_0_0_10_0_0; // ori
-            6'b001111: bundle = 10'b1_0_0_0_0_0_11_0_1; // lui
-            6'b100011: bundle = 10'b1_0_1_0_0_1_00_0_0; // lw
-            6'b101011: bundle = 10'b0_x_1_0_1_x_00_0_0; // sw
-            default: bundle = 10'bxxxxxxxxxx; // invalid op
+            6'b000010: bundle = 11'b0_x_x_x_x_x_xxx_1_0; // j
+            6'b000000: bundle = 11'b1_1_0_0_0_0_100_0_0; // R-type
+            6'b000100: bundle = 11'b0_x_0_1_0_x_010_0_0; // beq 如果相等则转移
+            6'b000101: bundle = 11'bx_x_x_x_x_x_010_x_0; // bne 如果不相等则转移
+            6'b001001: bundle = 11'b1_0_1_0_0_0_000_0_0; // addiu
+            6'b001101: bundle = 11'b1_0_1_0_0_0_011_0_0; // ori
+            6'b001111: bundle = 11'b1_0_1_0_0_0_110_0_1; // lui
+            6'b100011: bundle = 11'b1_0_1_0_0_1_000_0_0; // lw
+            6'b101011: bundle = 11'b0_x_1_0_1_x_000_0_0; // sw
+            default: bundle = 11'bxxxxxxxxxxx; // invalid op
         endcase
     end
 
@@ -148,15 +148,16 @@ endmodule: main_decoder
 
 module alu_decoder(
     input [5 : 0] funct,
-    input [1 : 0] aluop,
+    input [2 : 0] aluop,
     output logic [2 : 0] alu_control
 );
 
 always_comb begin
     unique case(aluop)
-        2'b00: alu_control = 3'b010; // add
-        2'b01: alu_control = 3'b110; // sub
-        2'b10: begin
+        3'b000: alu_control = 3'b010; // add
+        3'b010: alu_control = 3'b110; // sub
+        3'b011: alu_control = 3'b001; // or
+        3'b100: begin
             unique case(funct)
                 6'b100000: alu_control = 3'b010; // add
                 6'b100010: alu_control = 3'b110; // sub
@@ -165,7 +166,7 @@ always_comb begin
                 6'b101010: alu_control = 3'b111; // slt
             endcase
         end
-        2'b11: alu_control = 3'b011;
+        3'b110: alu_control = 3'b011;
     endcase
 end
 
