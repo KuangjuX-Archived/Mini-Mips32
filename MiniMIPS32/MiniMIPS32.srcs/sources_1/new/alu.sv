@@ -38,8 +38,8 @@ module alu(
             3'b111: res = a < b ? 32'd1 : '0;
             default: res = '0;
         endcase
-
-        assign ZF = !res;
     end
+
+    assign ZF = !res;
 
 endmodule: alu

@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-// Date        : Sun Jun  6 22:21:47 2021
+// Date        : Sun Jun  6 22:21:46 2021
 // Host        : DESKTOP-HJ97TPV running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               D:/Build-My-Own/Digital-Lab/lab-5/Mini-Mips32/MiniMIPS32/MiniMIPS32.srcs/sources_1/ip/data_ram/data_ram_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top data_ram -prefix
+//               data_ram_ data_ram_stub.v
 // Design      : data_ram
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tftg256-1

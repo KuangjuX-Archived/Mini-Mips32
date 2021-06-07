@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-// Date        : Sun Jun  6 22:21:47 2021
+// Date        : Sun Jun  6 22:21:46 2021
 // Host        : DESKTOP-HJ97TPV running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               D:/Build-My-Own/Digital-Lab/lab-5/Mini-Mips32/MiniMIPS32/MiniMIPS32.srcs/sources_1/ip/data_ram/data_ram_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top data_ram -prefix
+//               data_ram_ data_ram_sim_netlist.v
 // Design      : data_ram
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -97,7 +97,7 @@ endmodule
 (* C_MEM_INIT_FILE = "data_ram.mif" *) (* C_MEM_TYPE = "1" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
 (* C_READ_MIF = "1" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
-(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_12" *) 
+(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) 
 module data_ram_dist_mem_gen_v8_0_12
    (a,
     d,
@@ -247,7 +247,6 @@ module data_ram_dist_mem_gen_v8_0_12
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "dist_mem_gen_v8_0_12_synth" *) 
 module data_ram_dist_mem_gen_v8_0_12_synth
    (spo,
     clk,
@@ -274,7 +273,6 @@ module data_ram_dist_mem_gen_v8_0_12_synth
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "spram" *) 
 module data_ram_spram
    (spo,
     clk,
