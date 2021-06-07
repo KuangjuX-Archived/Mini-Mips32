@@ -49,6 +49,7 @@ module control_unit(
         .reg_dst(reg_dst),
         .reg_write(reg_write),
         .jump(jump),
+        .select_imm(select_imm),
         .aluop(aluop)
     );
 

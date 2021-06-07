@@ -43,7 +43,7 @@ module data_path(
     logic [31 : 0] sign_imm;
     logic [31 : 0] src_a, src_b;
     logic [31 : 0] write_reg_data;
-    logic [31 : 0] read_reg_data;
+    logic [31 : 0] read_reg_data, read_reg_data_2;
     logic [5 : 0] write_reg;
     
     logic [31 : 0] imm_1, imm_2;
@@ -118,6 +118,11 @@ module data_path(
         .rd2(wd) // RD2 port --> WriteData
     );
 
+    assign read_reg_data_2 = wd;
+
+    assign src_a = read_reg_data;
+
+
     mux2 #(5) reg_write_addr_mux2(
         .data0(instr[20 : 16]),
         .data1(instr[15 : 11]),
@@ -140,7 +145,7 @@ module data_path(
 
     // ALU logic
     alu alu(
-        .a(read_reg_data),
+        .a(src_a),
         .b(src_b),
         .aluop(alu_control),
         .res(alu_res),
@@ -155,7 +160,7 @@ module data_path(
     );
 
     mux2 src_b_mux2(
-        .data0(write_data),
+        .data0(wd),
         .data1(sign_imm),
         .select(alu_src),
         .result(src_b)
