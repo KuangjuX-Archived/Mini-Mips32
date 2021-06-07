@@ -87,15 +87,6 @@ module data_path(
         .result(pc_branch_next)
     );
 
-    // mux4 to judege next PC address
-    // mux4 pc_next_mux4(
-    //     .data0(pc_branch_next),
-    //     .data1({pc_plus_4[31 : 28], instr[25 : 0], 2'b00}),
-    //     .data2(read_reg_data),
-    //     .data3('0),
-    //     .select(jump),
-    //     .result(pc_next)
-    // );
 
     // mux2 to judge next PC address
     mux2 pc_next_mux2(

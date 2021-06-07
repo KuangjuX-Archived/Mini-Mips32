@@ -18,7 +18,7 @@ module MiniMIPS32(
     // we(write enable) is equal to mem_write
     // pc register is equal to iaddr
     // aluout is equal to daddr
-    logic pc_src, mem_to_reg, branch, alu_src, reg_dst, reg_write, jump;
+    logic pc_src, mem_to_reg, alu_src, reg_dst, reg_write, jump;
     logic [2 : 0] alu_control;
     logic zero;
     logic select_imm;
@@ -65,7 +65,6 @@ module MiniMIPS32(
         .zero(zero),
         .mem_to_reg(mem_to_reg),
         .mem_write(we),
-        .branch(branch),
         .alu_src(alu_src),
         .reg_dst(reg_dst),
         .reg_write(reg_write),
