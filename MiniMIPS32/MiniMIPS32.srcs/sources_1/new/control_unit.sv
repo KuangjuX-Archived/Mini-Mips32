@@ -105,33 +105,9 @@ module main_decoder(
         jump: 0
     */
 
-    /*
-        lw
-        reg_write: 1
-        reg_dst: 0
-        alu_src: 1
-        branch: 0
-        mem_write: 0
-        mem_to_reg:1
-        aluop: 00
-        jump: 0
-    */
-
-    /*
-        lui
-        reg_write: 1
-        reg_dst: 0
-        alu_src: 0
-        branch: 0
-        mem_write: 0
-        mem_to_reg: 0
-        aluop: 00
-        jump: 0
-    */
-
     always_comb begin 
         unique case(op)
-            6'b000010: bundle = 12'b0_x_x_x_x_x_xxx_1_0; // j
+            6'b000010: bundle = 12'b0_x_x_00_0_x_xxx_1_0; // j
             6'b000000: bundle = 12'b1_1_0_00_0_0_100_0_0; // R-type
             6'b000100: bundle = 12'b0_x_0_01_0_x_010_0_0; // beq 如果相等则转移
             6'b000101: bundle = 12'b0_x_0_10_0_x_010_0_0; // bne 如果不相等则转移

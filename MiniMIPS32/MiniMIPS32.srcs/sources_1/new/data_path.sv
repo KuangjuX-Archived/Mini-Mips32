@@ -92,7 +92,7 @@ module data_path(
     mux2 pc_next_mux2(
         .data0(pc_branch_next),
         .data1({pc_plus_4[31 : 28], instr[25 : 0], 2'b00}),
-        .select('0),
+        .select(jump),
         .result(pc_next)
     );
 
