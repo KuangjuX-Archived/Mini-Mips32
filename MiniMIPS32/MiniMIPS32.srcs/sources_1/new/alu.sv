@@ -32,10 +32,10 @@ module alu(
         unique case (aluop)
             3'b000: res = a & b; 
             3'b001: res = a | b;
-            3'b010: res = a + b;
+            3'b010: res = signed'(a) + signed'(b);
             3'b011: res = b; // nop for lui
-            3'b110: res = a - b;
-            3'b111: res = a < b ? 32'd1 : '0;
+            3'b110: res = signed'(a) - signed'(b);
+            3'b111: res = signed'(a) < signed'(b) ? 32'd1 : '0;
             default: res = '0;
         endcase
     end

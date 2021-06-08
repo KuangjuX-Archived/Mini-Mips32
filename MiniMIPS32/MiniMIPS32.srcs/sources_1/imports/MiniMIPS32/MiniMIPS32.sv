@@ -37,11 +37,20 @@ module MiniMIPS32(
     // next address to fetch data
     logic [31 : 0] data_addr_o;
 
+    always_comb begin
+        if(daddr[31 : 16] == 16'h8000 || daddr[31 : 16] == 16'h8004) begin
+            // IO device
+            din[31 : 0] = write_mem_data[31 : 0];
+        end
+        else begin
+            // Memory
+            din[7 : 0] = write_mem_data[31 : 24];
+            din[15 : 8] = write_mem_data[23 : 16];
+            din[23 : 16] = write_mem_data[15 : 8];
+            din[31 : 24] = write_mem_data[7 : 0];      
+        end
+    end
 
-    assign din[7 : 0] = write_mem_data[31 : 24];
-    assign din[15 : 8] = write_mem_data[23 : 16];
-    assign din[23 : 16] = write_mem_data[15 : 8];
-    assign din[31 : 24] = write_mem_data[7 : 0];
 
     assign read_mem_data[7 : 0] = dout[31 : 24];
     assign read_mem_data[15 : 8] = dout[23 : 16];

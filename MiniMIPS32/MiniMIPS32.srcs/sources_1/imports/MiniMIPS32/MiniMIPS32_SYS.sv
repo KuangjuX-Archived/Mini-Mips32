@@ -16,7 +16,7 @@ module MiniMIPS32_SYS(
     logic [31:0] dout;
     // logic we_dram;
     
-    //µØÖ·0x80000000¶ÔÓ¦ºìµÆ£¬µØÖ·0x80040000¶ÔÓ¦ÂÌµÆ£¬µØÖ·0x10000000¿ªÊ¼´æ·ÅÊı¾İ
+    // åœ°å€0x80000000å¯¹åº”çº¢ç¯ï¼Œåœ°å€0x80040000å¯¹åº”ç»¿ç¯ï¼Œåœ°å€0x10000000å¼€å§‹å­˜æ”¾æ•°æ®
     // assign we_dram = (daddr[31] == 1'b1) ? 1'b0 : we;
     logic led_r_reg, led_g_reg;
     always_ff @(posedge sys_clk) begin
@@ -27,6 +27,8 @@ module MiniMIPS32_SYS(
     end
     assign led_r = led_r_reg;
     assign led_g = led_g_reg;
+
+    logic write_data;
 
     MiniMIPS32 CPU (
         .cpu_clk(sys_clk),

@@ -23,7 +23,7 @@ module MiniMIPS32_SYS_tb();
         sys_rst_n = 1;     
         
             
-        #15000 $stop;
+        #150000 $stop;
     end
         
     always #(`CLK_PERIOD/2) sys_clk = ~sys_clk;

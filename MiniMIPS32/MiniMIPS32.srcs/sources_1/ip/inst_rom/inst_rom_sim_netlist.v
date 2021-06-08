@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
 // Date        : Mon Jun  7 14:26:56 2021
 // Host        : DESKTOP-HJ97TPV running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               D:/Build-My-Own/Digital-Lab/lab-5/Mini-Mips32/MiniMIPS32/MiniMIPS32.srcs/sources_1/ip/inst_rom/inst_rom_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top inst_rom -prefix
+//               inst_rom_ inst_rom_sim_netlist.v
 // Design      : inst_rom
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -88,7 +88,7 @@ endmodule
 (* C_MEM_INIT_FILE = "inst_rom.mif" *) (* C_MEM_TYPE = "0" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
 (* C_READ_MIF = "1" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
-(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_12" *) 
+(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) 
 module inst_rom_dist_mem_gen_v8_0_12
    (a,
     d,
@@ -243,7 +243,6 @@ module inst_rom_dist_mem_gen_v8_0_12
         .spo({\^spo [31],\^spo [29:22],\^spo [20:19],\^spo [15:7],\^spo [5:0]}));
 endmodule
 
-(* ORIG_REF_NAME = "dist_mem_gen_v8_0_12_synth" *) 
 module inst_rom_dist_mem_gen_v8_0_12_synth
    (spo,
     a);
@@ -258,7 +257,6 @@ module inst_rom_dist_mem_gen_v8_0_12_synth
         .spo(spo));
 endmodule
 
-(* ORIG_REF_NAME = "rom" *) 
 module inst_rom_rom
    (spo,
     a);
