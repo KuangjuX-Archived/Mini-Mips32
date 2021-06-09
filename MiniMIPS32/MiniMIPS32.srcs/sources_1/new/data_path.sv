@@ -79,7 +79,7 @@ module data_path(
         .res(pc_branch)
     );
 
-    // beq -> select pc_branch or pc_plus_4
+    // branch select
     mux2 pc_branch_next_mux2(
         .data0(pc_plus_4),
         .data1(pc_branch),
