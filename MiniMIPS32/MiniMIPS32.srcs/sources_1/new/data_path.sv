@@ -44,7 +44,7 @@ module data_path(
     logic [31 : 0] src_a, src_b;
     logic [31 : 0] write_reg_data;
     logic [31 : 0] read_reg_data, read_reg_data_2;
-    logic [5 : 0] write_reg;
+    logic [4 : 0] write_reg;
     
     logic [31 : 0] imm_1, imm_2;
 

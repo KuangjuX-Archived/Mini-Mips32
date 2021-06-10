@@ -28,6 +28,7 @@ module MiniMIPS32_SYS(
     assign led_r = led_r_reg;
     assign led_g = led_g_reg;
 
+
     logic write_data;
 
     MiniMIPS32 CPU (
