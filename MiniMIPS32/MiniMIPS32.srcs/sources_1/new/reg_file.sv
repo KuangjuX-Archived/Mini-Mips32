@@ -28,8 +28,8 @@ module reg_file(
     input [4 : 0] a3, // write address 3
     input [31 : 0] wd, // write data
     input we, // write enable
-    output [31 : 0] rd1, // read data 1
-    output [31 : 0] rd2  // read data 2
+    output logic [31 : 0] rd1, // read data 1
+    output logic [31 : 0] rd2  // read data 2
     );
     logic [31 : 0] rf[31 : 0];
     integer i;
@@ -42,7 +42,10 @@ module reg_file(
     end
 
     // Register 0 hardwired to 0
-    assign rd1 = !a1 ? '0 : rf[a1];
-    assign rd2 = !a2 ? '0 : rf[a2];
+    // assign rd1 = !a1 ? '0 : rf[a1];
+    // assign rd2 = !a2 ? '0 : rf[a2];
+    assign rd1 = rf[a1];
+    assign rd2 = rf[a2];
+
  
 endmodule: reg_file
