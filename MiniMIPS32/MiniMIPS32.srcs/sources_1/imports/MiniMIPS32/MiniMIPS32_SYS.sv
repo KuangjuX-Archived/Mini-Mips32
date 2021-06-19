@@ -31,6 +31,9 @@ module MiniMIPS32_SYS(
 
     logic write_data;
 
+    logic we_buf;
+    assign we_buf = (daddr[31 : 16] == 16'h8000 || daddr[31 : 16] == 16'h8004)?0:we;
+
     MiniMIPS32 CPU (
         .cpu_clk(sys_clk),
         .cpu_rst_n(sys_rst_n),
@@ -51,7 +54,7 @@ module MiniMIPS32_SYS(
         .a(daddr[9:2]),      // input wire [9 : 2] a
         .d(din),      // input wire [31 : 0] d
         .clk(sys_clk),  // input wire clk
-        .we(we),    // input wire we
+        .we(we_buf),    // input wire we
         .spo(dout)  // output wire [31 : 0] spo
     );
 
